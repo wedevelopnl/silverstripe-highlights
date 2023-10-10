@@ -1,0 +1,6 @@
+---
+Name: wedevelop-highlights
+---
+SilverStripe\ORM\FieldType\DBString:
+  extensions:
+    - WeDevelop\Highlights\Extension\DBStringExtension
