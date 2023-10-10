@@ -23,11 +23,21 @@ class DBStringExtension extends Extension
 
     public function Highlight(): HTMLValue
     {
-        $regex = sprintf('/\%s(.+)%s/', $this->getOwner()->config()->get('shortcode_start'), $this->getOwner()->config()->get('shortcode_end'));
-        $class = sprintf('<span class="%s">$1</span>', $this->getOwner()->config()->get('css_class_name'));
+        return HTMLValue::create(preg_replace($this->createRegex(), $this->createElement(), $this->getOwner()->getValue()));
+    }
 
-        $value = preg_replace($regex, $class, $this->getOwner()->getValue());
+    private function createElement(): string
+    {
+        return sprintf('<span class="%s">$1</span>', $this->getConfig('css_class_name'));
+    }
 
-        return HTMLValue::create($value);
+    private function createRegex(): string
+    {
+        return sprintf('/\%s(.+)%s/', $this->getConfig('shortcode_start'), $this->getConfig('shortcode_end'));
+    }
+
+    private function getConfig(string $name): string
+    {
+        return $this->getOwner()->config()->get($name);
     }
 }
