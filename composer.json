@@ -1,0 +1,24 @@
+{
+    "name": "wedevelopnl/silverstripe-highlights",
+    "description": "Silverstripe module to add shortcode highlights for DB strings.",
+    "type": "silverstripe-vendormodule",
+    "keywords": [
+        "silverstripe"
+    ],
+    "license": "MIT",
+    "authors": [{
+        "name": "WeDevelop",
+        "email": "development@wedevelop.nl"
+    }],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^8.1",
+        "silverstripe/framework": "^5"
+    },
+    "autoload": {
+        "psr-4": {
+            "WeDevelop\\Highlight\\": "src/"
+        }
+    }
+}
