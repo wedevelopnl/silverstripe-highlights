@@ -15,15 +15,29 @@ class DBStringExtension extends Extension
 
     private static string $shortcode_end = ']';
 
+    private static string $css_class_name = 'highlight';
+
     private static array $casting = [
         'Highlight' => 'Text',
     ];
 
     public function Highlight(): HTMLValue
     {
-        $regex = sprintf('/\%s(.+)%s/', self::getOwner()->config()->get('shortcode_start'), self::getOwner()->config()->get('shortcode_end'));
-        $value = preg_replace($regex, '<span class="is-highlighted">$1</span>', $this->getOwner()->getValue());
+        return HTMLValue::create(preg_replace($this->createRegex(), $this->createElement(), $this->getOwner()->getValue()));
+    }
 
-        return HTMLValue::create($value);
+    private function createElement(): string
+    {
+        return sprintf('<span class="%s">$1</span>', $this->getConfig('css_class_name'));
+    }
+
+    private function createRegex(): string
+    {
+        return sprintf('/\%s(.+)%s/', $this->getConfig('shortcode_start'), $this->getConfig('shortcode_end'));
+    }
+
+    private function getConfig(string $name): string
+    {
+        return $this->getOwner()->config()->get($name);
     }
 }
