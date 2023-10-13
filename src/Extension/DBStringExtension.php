@@ -11,19 +11,26 @@ use SilverStripe\View\Parsers\HTMLValue;
  */
 class DBStringExtension extends Extension
 {
+    /** @config */
     private static string $shortcode_start = '[';
 
+    /** @config */
     private static string $shortcode_end = ']';
 
+    /** @config */
     private static string $css_class_name = 'highlight';
 
+    /**
+     * @config
+     * @var array<string, string>
+     */
     private static array $casting = [
         'Highlight' => 'Text',
     ];
 
     public function Highlight(): HTMLValue
     {
-        return HTMLValue::create(preg_replace($this->createRegex(), $this->createElement(), $this->getOwner()->getValue()));
+        return HTMLValue::create(preg_replace('/' . $this->createRegex() . '/U', $this->createElement(), $this->getOwner()->getValue()) ?? '');
     }
 
     private function createElement(): string
@@ -33,7 +40,7 @@ class DBStringExtension extends Extension
 
     private function createRegex(): string
     {
-        return sprintf('/\%s(.+)%s/', $this->getConfig('shortcode_start'), $this->getConfig('shortcode_end'));
+        return sprintf('%s(.+)%s', preg_quote($this->getConfig('shortcode_start'), '/'), preg_quote($this->getConfig('shortcode_end'), '/'));
     }
 
     private function getConfig(string $name): string
