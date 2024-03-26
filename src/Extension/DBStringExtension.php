@@ -10,6 +10,7 @@ use SilverStripe\View\Parsers\HTMLValue;
 
 /**
  * @method DBString getOwner()
+ * @property ?string $Highlight
  */
 class DBStringExtension extends Extension
 {
