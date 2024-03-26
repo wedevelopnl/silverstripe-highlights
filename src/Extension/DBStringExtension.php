@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\Highlights\Extension;
 
 use SilverStripe\Core\Extension;
@@ -8,6 +10,7 @@ use SilverStripe\View\Parsers\HTMLValue;
 
 /**
  * @method DBString getOwner()
+ * @property ?string $Highlight
  */
 class DBStringExtension extends Extension
 {
