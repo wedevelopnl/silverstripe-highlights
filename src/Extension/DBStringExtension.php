@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WeDevelop\Highlights\Extension;
 
 use SilverStripe\Core\Extension;
